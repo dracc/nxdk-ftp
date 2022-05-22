@@ -5,6 +5,8 @@
 extern "C" {
 #endif
 
+#include <stdbool.h>
+
 typedef struct ftpServer ftpServer;
 
 typedef struct ftpConfig {
