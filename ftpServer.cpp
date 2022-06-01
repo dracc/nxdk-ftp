@@ -256,10 +256,15 @@ int FtpServer::thread_runner(FtpServer* server) {
 inline FtpServer* real(ftpServer* f) {return static_cast<FtpServer*>(f);}
 
 ftpServer* new_ftpServer(ftpConfig* c) {
-  FtpConfig C(c);
-  FtpServer *s = new FtpServer(&C);
+  FtpConfig *C = new FtpConfig(c);
+  FtpServer *s = new FtpServer(C);
   s->init();
   return s;
 }
+
 void run_ftpServer(ftpServer* f) { real(f)->run(); }
-void delete_ftpServer(ftpServer* f) { delete real(f); }
+
+void delete_ftpServer(ftpServer* f) {
+  delete real(f)->conf;
+  delete real(f);
+}
